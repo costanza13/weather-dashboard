@@ -57,7 +57,6 @@ var updateSearchHistory = function(cityData, multipleMatches) {
 
 var weatherCitySearch = function(city) {
   weatherInfoEl.classList.add("hidden");
-  messagesEl.classList.add('hidden');
 
   var endpoint = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=3&appid=' + OWM_KEY;
 
@@ -79,6 +78,7 @@ var weatherCitySearch = function(city) {
 
 var getWeatherForCity = function(cityData) {
   updateSearchHistory(cityData);
+  messagesEl.classList.add('hidden');
 
   var endpoint = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + cityData.lat + '&lon=' + cityData.lon + '&exclude=minutely,hourly&units=imperial&appid=' + OWM_KEY;
 
@@ -127,11 +127,9 @@ var updateWeatherDashboard = function (weather) {
     forecastCardEls[i].innerHTML = cardBodyHtml;
   }
 
-
-  if (weatherInfoEl.classList.contains("hidden")) {
-    weatherInfoEl.classList.remove("hidden");
-  }
-  
+  // hide the messages div and show the weather info
+  messagesEl.classList.add('hidden');
+  weatherInfoEl.classList.remove('hidden');
 };
 
 var displayError = function (error) {
