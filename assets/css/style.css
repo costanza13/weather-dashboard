@@ -1,0 +1,12 @@
+#top-banner {
+  color: white;
+  background-image: linear-gradient(to right, rgb(38, 70, 160), rgb(27, 2, 85)) 
+};
+
+.hidden {
+  display: none;
+}
+
+.card {
+  width: 20%;
+}

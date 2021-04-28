@@ -9,39 +9,55 @@
     rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
   />
+  <link rel="stylesheet" href="./assets/css/style.css" />
 
 </head>
 <body>
   <div class="container">
-    <div class="row">
-      <div class="col-12">
+    <div id="top-banner" class="row mb-2">
+      <div class="col-12 text-center">
         <h1>Weather Dashboard</h1>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-2">
+      <div class="col-3">
         <h2>Search for a City:</h2>
+        <input type="text" id="city" class="form-control" />
+        <button type="submit" id="search-for-city" class="btn btn-primary btn-block mt-1">Search</button>
       </div>
-      <div class="col-10">
+      <div id="weather-info" class="col-9 hidden">
         <div class="row">
-          <div class="col-12">
+          <div class="col-12 border border-dark">
             city weather overview
           </div>
         </div>
         <div class="row">
           <div class="col-12">
             <h3>5-Day Forecast</h3>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
+            <div class="card-deck">
+              <div class="card">
+                <div class="card-header">day 1</div>
+              </div>
+              <div class="card">
+                <div class="card-header">day 2</div>
+              </div>
+              <div class="card">
+                <div class="card-header">day 3</div>
+              </div>
+              <div class="card">
+                <div class="card-header">day 4</div>
+              </div>
+              <div class="card">
+                <div class="card-header">day 5</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
   
+  <script src="./assets/js/script.js"></script>
 </body>
 </html>
