@@ -135,6 +135,7 @@ var updateWeatherDashboard = function (weather) {
   }
 
   // hide the messages div and show the weather info
+  messagesEl.classList.remove('d-block');
   messagesEl.classList.add('d-none');
   weatherInfoEl.classList.remove('d-none');
 };
@@ -143,6 +144,7 @@ var displayError = function (error) {
   console.log(error);
   messagesEl.innerHTML = '<p class="d-inline-block align-middle bg-info text-light rounded p-2">' + error + '</p>';
   messagesEl.classList.remove('d-none');
+  messagesEl.classList.add('d-block');
 };
 
 var handleSearch = function(event) {
