@@ -26,6 +26,9 @@ var loadSearchHistory = function() {
       var title = searchHistoryData[i].key.replace(',US', '').replace(',', ', ');
       searchHistoryEl.innerHTML += '<button type="button" title="' + title + '" class="btn btn-secondary btn-block mt-3 text-dark" data-index="' + i + '" data-key="' + searchHistoryData[i].key + '">' + searchHistoryData[i].name + '</button>'
     }
+    if (searchHistoryEl.innerHTML) {
+      searchHistoryEl.classList.remove('d-none');
+    }
   } else {
     searchHistoryData = [];
   }
@@ -56,7 +59,7 @@ var updateSearchHistory = function(cityData, multipleMatches) {
 }
 
 var weatherCitySearch = function(city) {
-  weatherInfoEl.classList.add("hidden");
+  weatherInfoEl.classList.add("d-none");
 
   var endpoint = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=3&appid=' + OWM_KEY;
 
@@ -67,18 +70,20 @@ var weatherCitySearch = function(city) {
           console.log(data[0]);
           getWeatherForCity(data[0]);
         } else {
-          displayError("No cities matched '" + city + "'");
+          displayError('No cities matched "' + city + '".<br>Check spelling or search for a different city.');
         }
       });
     } else {
-      displayError('Unable to fetch city information');
+      displayError('Unable to fetch city information.<br>[ ' + response.statusText + ' ]<br>Please try again later.');
     }
+  }).catch(function(error) {
+    displayError('Unable to fetch city information.<br>[ ' + error + ' ]<br>Please try again later.');
   });
 };
 
 var getWeatherForCity = function(cityData) {
   updateSearchHistory(cityData);
-  messagesEl.classList.add('hidden');
+  messagesEl.classList.add('d-none');
 
   var endpoint = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + cityData.lat + '&lon=' + cityData.lon + '&exclude=minutely,hourly&units=imperial&appid=' + OWM_KEY;
 
@@ -89,8 +94,10 @@ var getWeatherForCity = function(cityData) {
         updateWeatherDashboard(data);
       });
     } else {
-      displayError('Unable to fetch weather information');
+      displayError('Unable to fetch weather information.<br>[ ' + response.statusText + ' ]<br>Please try again later.');
     }
+  }).catch(function(error) {
+    displayError('Unable to fetch weather information.<br>[ ' + error + ' ]<br>Please try again later.');
   });
 };
 
@@ -128,15 +135,15 @@ var updateWeatherDashboard = function (weather) {
   }
 
   // hide the messages div and show the weather info
-  messagesEl.classList.add('hidden');
-  weatherInfoEl.classList.remove('hidden');
+  messagesEl.classList.add('d-none');
+  weatherInfoEl.classList.remove('d-none');
 };
 
 var displayError = function (error) {
   console.log(error);
-  messagesEl.classList.remove('hidden');
+  messagesEl.innerHTML = '<p class="d-inline-block align-middle bg-info text-light rounded p-2">' + error + '</p>';
+  messagesEl.classList.remove('d-none');
 };
-
 
 var handleSearch = function(event) {
   event.preventDefault();

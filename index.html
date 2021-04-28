@@ -26,12 +26,12 @@
         <input type="text" id="city" class="form-control text-secondary" />
         <button type="submit" id="search-for-city" class="btn btn-primary btn-block my-3">Search</button>
 
-        <div id="search-history">
+        <div id="search-history" class="d-none">
         </div>
       </div>
 
       <div class="col-9">
-        <div id="weather-info" class="container hidden">
+        <div id="weather-info" class="container d-none">
           <div class="row">
             <div id="current-weather" class="col-12 border border-dark">
               <h3 id="current-weather-heading"></h3>
@@ -65,7 +65,7 @@
           </div>
         </div>
 
-        <div id="messages" class="align-middle text-center"><p>Enter a city to see its weather.</p></div>
+        <div id="messages" class="d-block align-middle text-center"><p class="d-inline-block align-middle bg-light text-dark rounded p-2">Enter a city to see its weather.</p></div>
       </div>
     </div>
   </div>

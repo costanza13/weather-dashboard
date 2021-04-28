@@ -3,10 +3,6 @@
   background-image: linear-gradient(to right, #2961c2, #25004f) 
 }
 
-.hidden {
-  display: none;
-}
-
 .row {
   margin-top: .5rem;
 }
@@ -22,4 +18,10 @@
 .btn-secondary {
   background-color: lightgray;
   border: none;
+}
+
+#messages {
+  min-height: 300px;
+  padding: 20% 0;
+  line-height: 1.5;
 }
