@@ -58,10 +58,16 @@ var updateSearchHistory = function(cityData, multipleMatches) {
   loadSearchHistory();
 }
 
-var weatherCitySearch = function(city) {
+var weatherCitySearch = function(query) {
+  console.log(query);
   weatherInfoEl.classList.add("d-none");
+  var usAdded = false;
+  if (query.indexOf(',us-added')) {
+    usAdded = true;
+    query = query.replace('-added', '');
+  }
 
-  var endpoint = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=3&appid=' + OWM_KEY;
+  var endpoint = 'https://api.openweathermap.org/geo/1.0/direct?q=' + query + '&limit=10&appid=' + OWM_KEY;
 
   fetch(endpoint).then(function(response) {
     if (response.ok) {
@@ -70,7 +76,23 @@ var weatherCitySearch = function(city) {
           console.log(data[0]);
           getWeatherForCity(data[0]);
         } else {
-          displayError('No cities matched "' + city + '".<br>Check spelling or search for a different city.');
+
+          if (query.indexOf(',') > 0) {
+            console.log('has comma', query);
+            // user included a comma, possibly for state or country
+            // try again with ',us' appended
+            if (query.indexOf(',us') === -1) {
+              console.log('adding ,us', query);
+              weatherCitySearch(query + ',us-added');
+              return;
+            }
+            if (usAdded) {
+              console.log('removing ,us', query);
+              query = query.replace(',us', '');
+            }
+          }
+
+          displayError('No cities matched "' + query + '".<br>Check spelling or search for a different city.');
         }
       });
     } else {
