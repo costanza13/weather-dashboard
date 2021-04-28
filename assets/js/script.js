@@ -24,7 +24,7 @@ var getWeatherForCity = function(city) {
   // currentCity = cityInfoJson[0].name;
   // getWeatherByLocation(cityInfoJson[0].lat, cityInfoJson[0].lon);
   
-  var endpoint = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=3&appid=' + OWM_KEY;
+  var endpoint = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=3&appid=' + OWM_KEY;
 
   fetch(endpoint).then(function(response) {
     if (response.ok) {
@@ -46,7 +46,7 @@ var getWeatherForCity = function(city) {
 var getWeatherByLocation = function(latitude, longitude) {
   // updateWeatherDashboard(weatherInfoJson);
 
-  var endpoint = 'http://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&exclude=minutely,hourly&units=imperial&appid=' + OWM_KEY;
+  var endpoint = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latitude + '&lon=' + longitude + '&exclude=minutely,hourly&units=imperial&appid=' + OWM_KEY;
 
   fetch(endpoint).then(function(response) {
     if (response.ok) {
@@ -64,7 +64,7 @@ var updateWeatherDashboard = function (weather) {
 
   // current weather
   var dateStr = new dayjs.unix(weather.current.dt).format('M/D/YYYY');
-  currentWeatherHeadingEl.innerHTML = currentCity + ' (' + dateStr + ') <img src="http://openweathermap.org/img/wn/' + weather.current.weather[0].icon + '.png" />';
+  currentWeatherHeadingEl.innerHTML = currentCity + ' (' + dateStr + ') <img src="https://openweathermap.org/img/wn/' + weather.current.weather[0].icon + '.png" />';
   currentTemperatureEl.innerHTML = 'Temp: ' + weather.current.temp + ' &deg;F';
   currentWindEl.textContent = 'Wind: ' + weather.current.temp + ' MPH';
   currentHumidityEl.textContent = 'Humidity: ' + weather.current.humidity + ' %';
@@ -84,7 +84,7 @@ var updateWeatherDashboard = function (weather) {
   for (var i = 0; i < forecastCardEls.length; i++) {
     var dateStr = new dayjs.unix(weather.daily[i].dt).format('M/D/YYYY');
     var cardBodyHtml = '<h5 class="card-title">' + dateStr + '</h5>' +
-      '<p><img src="http://openweathermap.org/img/wn/' + weather.daily[i].weather[0].icon + '.png" /></p>' +
+      '<p><img src="https://openweathermap.org/img/wn/' + weather.daily[i].weather[0].icon + '.png" /></p>' +
       '<p>Temp: ' + weather.daily[i].temp.day + ' &deg;F</p>' +
       '<p>Wind: ' + weather.daily[i].wind_speed + ' MPH</p>' +
       '<p>Humidity: ' + weather.daily[i].humidity + ' %</p>';
