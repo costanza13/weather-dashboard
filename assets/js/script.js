@@ -1,5 +1,7 @@
 const OWM_KEY = 'f396f0f7fdce40c1a84f7337a2c39948';
 
+const cityInputEl = document.querySelector('#city');
+const searchButtonEl = document.querySelector('#search-for-city');
 const weatherInfoEl = document.querySelector('#weather-info');
 const currentWeatherEl = document.querySelector('#current-weather');
 const currentWeatherHeadingEl = document.querySelector('#current-weather-heading');
@@ -103,5 +105,15 @@ var displayError = function (error) {
 };
 
 
-currentCity = 'new york';
-getWeatherForCity(currentCity);
+var handleSearch = function(event) {
+  event.preventDefault();
+  currentCity = cityInputEl.value;
+  getWeatherForCity(currentCity);
+};
+
+
+// currentCity = 'new york';
+// getWeatherForCity(currentCity);
+
+// search form event listener
+searchButtonEl.addEventListener('click', handleSearch);
