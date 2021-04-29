@@ -1,6 +1,8 @@
 # Weather Dashboard
 An app to fetch and display weather information from OpenWeather for multiple cities to aid travelers in trip planning.
 
+Deployed at: https://costanza13.github.io/weather-dashboard/
+
 ## Features
 - Provides a simple search form that accepts a city name
 - Searching for a city presents the user with current and future conditions for that city, if found
