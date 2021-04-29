@@ -5,24 +5,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather Dashboard</title>
-  <link
-    rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-  />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
   <link rel="stylesheet" href="./assets/css/style.css" />
 
 </head>
 <body>
-  <div class="container">
+  <div class="container-md">
     <div id="top-banner" class="row mb-3">
-      <div class="col-12 text-center">
-        <h2>Weather Dashboard</h2>
+      <div class="col-12 text-center py-1">
+        <h1>Weather Dashboard</h1>
       </div>
     </div>
 
     <div class="row flex-column-reverse flex-sm-row">
       <div class="col-sm-12 col-md-3">
-        <h3>Search for a City:</h3>
+        <h2>Search for a City:</h2>
         <input type="text" id="city" class="form-control text-secondary" />
         <button type="submit" id="search-for-city" class="btn btn-primary btn-block my-3">Search</button>
 
@@ -34,7 +31,7 @@
         <div id="weather-info" class="container d-none">
           <div class="row mb-3">
             <div id="current-weather" class="col-12 border border-dark">
-              <h3 id="current-weather-heading"></h3>
+              <h2 id="current-weather-heading"></h2>
               <p id="current-temp"></p>
               <p id="current-wind"></p>
               <p id="current-humidity"></p>
@@ -43,7 +40,7 @@
           </div>
           <div class="row">
             <div class="col-12 px-0 overflow-auto">
-              <h4>5-Day Forecast</h4>
+              <h3>5-Day Forecast</h3>
               <div class="d-inline-flex d-xl-flex justify-content-between text-light">
                 <div class="card">
                   <div class="card-body"></div>
