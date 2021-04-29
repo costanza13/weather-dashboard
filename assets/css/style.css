@@ -3,18 +3,16 @@
   background-image: linear-gradient(to right, #2961c2, #25004f) 
 }
 
-.row {
-  margin-top: .5rem;
-}
-
 .card {
   background: #293e51;
+  width: 150px;
   padding: 5px;
 }
 
 #search-history {
   border-top: 2px solid lightgray;
 }
+
 .btn-secondary {
   background-color: lightgray;
   border: none;
@@ -22,6 +20,5 @@
 
 #messages {
   min-height: 300px;
-  padding: 20% 0;
   line-height: 1.5;
 }
