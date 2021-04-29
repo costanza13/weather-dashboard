@@ -15,7 +15,7 @@ const messagesEl = document.querySelector('#messages');
 
 var searchHistoryData;
 
-var loadSearchHistory = function() {
+var loadSearchHistory = function () {
 
   searchHistoryEl.innerHTML = '';
 
@@ -34,7 +34,7 @@ var loadSearchHistory = function() {
   }
 };
 
-var updateSearchHistory = function(cityData, multipleMatches) {
+var updateSearchHistory = function (cityData, multipleMatches) {
   var key = cityData.name;
   if (cityData.country == 'US') {
     key += ',' + cityData.state + ',' + 'US';
@@ -58,46 +58,95 @@ var updateSearchHistory = function(cityData, multipleMatches) {
   loadSearchHistory();
 }
 
-var weatherCitySearch = function(city) {
-  weatherInfoEl.classList.add("d-none");
-
-  var endpoint = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=3&appid=' + OWM_KEY;
-
-  fetch(endpoint).then(function(response) {
-    if (response.ok) {
-      response.json().then(function(data) {
-        if (data.length) {
-          console.log(data[0]);
-          getWeatherForCity(data[0]);
-        } else {
-          displayError('No cities matched "' + city + '".<br>Check spelling or search for a different city.');
-        }
-      });
-    } else {
-      displayError('Unable to fetch city information.<br>[ ' + response.statusText + ' ]<br>Please try again later.');
-    }
-  }).catch(function(error) {
-    displayError('Unable to fetch city information.<br>[ ' + error + ' ]<br>Please try again later.');
-  });
-};
-
-var getWeatherForCity = function(cityData) {
+var getWeatherForCity = function (cityData) {
   updateSearchHistory(cityData);
   messagesEl.classList.add('d-none');
 
   var endpoint = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + cityData.lat + '&lon=' + cityData.lon + '&exclude=minutely,hourly&units=imperial&appid=' + OWM_KEY;
 
-  fetch(endpoint).then(function(response) {
+  fetch(endpoint).then(function (response) {
     if (response.ok) {
-      response.json().then(function(data) {
+      response.json().then(function (data) {
         data.city = cityData.name;
         updateWeatherDashboard(data);
       });
     } else {
       displayError('Unable to fetch weather information.<br>[ ' + response.statusText + ' ]<br>Please try again later.');
     }
-  }).catch(function(error) {
+  }).catch(function (error) {
     displayError('Unable to fetch weather information.<br>[ ' + error + ' ]<br>Please try again later.');
+  });
+};
+
+var refineSearch = function (cities) {
+  // present user with a list of matches to choose from
+  var refineButtons = '<h4 class="mb-5">Multiple cities matched your search.</h4>' +
+    '<div id="refine" class="d-inline-block bg-secondary px-5 rounded">' +
+    '<h5 class="text-light m-3 text-left">Did you mean...</h5>';
+  for (var i = 0; i < cities.length; i++) {
+    refineButtons += '<button class="btn btn-block my-3 bg-light" data-index="' + i + '">' + cities[i].name + ', ' + (cities[i].state ? cities[i].state : cities[i].country) + '</button>';
+  }
+  refineButtons += '</div>';
+
+  messagesEl.innerHTML = refineButtons;
+  messagesEl.classList.remove('d-none');
+  messagesEl.classList.add('d-block');
+
+  var refineFormEl = document.querySelector('#refine');
+  refineFormEl.addEventListener('click', function (event) {
+    var cityIndex = parseInt(event.target.getAttribute('data-index'));
+    getWeatherForCity(cities[cityIndex]);
+  });
+
+};
+
+var weatherCitySearch = function (query) {
+  console.log(query);
+  weatherInfoEl.classList.add("d-none");
+  var usAdded = false;
+  if (query.indexOf(',us-added')) {
+    usAdded = true;
+    query = query.replace('-added', '');
+  }
+
+  var endpoint = 'https://api.openweathermap.org/geo/1.0/direct?q=' + query + '&limit=10&appid=' + OWM_KEY;
+
+  fetch(endpoint).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (data) {
+        if (data.length) {
+          if (data.length > 1) {
+            // multiple matches, so give the user some options
+            refineSearch(data);
+            return;
+          }
+          console.log(data[0]);
+          getWeatherForCity(data[0]);
+
+        } else {
+          if (query.indexOf(',') > 0) {
+            console.log('has comma', query);
+            // user included a comma, possibly for state or country
+            // try again with ',us' appended
+            if (query.indexOf(',us') === -1) {
+              console.log('adding ,us', query);
+              weatherCitySearch(query + ',us-added');
+              return;
+            }
+            if (usAdded) {
+              console.log('removing ,us', query);
+              query = query.replace(',us', '');
+            }
+          }
+
+          displayError('<h5>No cities matched your query:</h5><h5>"' + query + '"</h5><h5>Check spelling or search for a different city.</h5>');
+        }
+      });
+    } else {
+      displayError('Unable to fetch city information.<br>[ ' + response.statusText + ' ]<br>Please try again later.');
+    }
+  }).catch(function (error) {
+    displayError('Unable to fetch city information.<br>[ ' + error + ' ]<br>Please try again later.');
   });
 };
 
@@ -121,7 +170,7 @@ var updateWeatherDashboard = function (weather) {
   }
   var uviHtml = '<span class="text-light ' + uviClass + ' px-3 py-1 rounded">' + weather.current.uvi + '</span>';
   currentUvIndexEl.innerHTML = 'UV Index: ' + uviHtml;
-  
+
   // 5-day forecast
   for (var i = 0; i < forecastCardEls.length; i++) {
     var dateStr = new dayjs.unix(weather.daily[i + 1].dt).format('M/D/YYYY');
@@ -142,19 +191,19 @@ var updateWeatherDashboard = function (weather) {
 
 var displayError = function (error) {
   console.log(error);
-  messagesEl.innerHTML = '<p class="d-inline-block align-middle bg-info text-light rounded p-2">' + error + '</p>';
+  messagesEl.innerHTML = '<div class="d-inline-block bg-info text-light rounded p-2 error-msg">' + error + '</div>';
   messagesEl.classList.remove('d-none');
   messagesEl.classList.add('d-block');
 };
 
-var handleSearch = function(event) {
+var handleSearch = function (event) {
   event.preventDefault();
   var city = cityInputEl.value;
   cityInputEl.value = '';
   weatherCitySearch(city);
 };
 
-var handleHistorySearch = function(event) {
+var handleHistorySearch = function (event) {
   event.preventDefault();
   var cityData = searchHistoryData[parseInt(event.target.getAttribute('data-index'))];
   console.log('history city data', cityData);

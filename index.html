@@ -14,25 +14,25 @@
 </head>
 <body>
   <div class="container">
-    <div id="top-banner" class="row">
+    <div id="top-banner" class="row mb-3">
       <div class="col-12 text-center">
         <h2>Weather Dashboard</h2>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-3">
+    <div class="row flex-column-reverse flex-sm-row">
+      <div class="col-sm-12 col-md-3">
         <h3>Search for a City:</h3>
         <input type="text" id="city" class="form-control text-secondary" />
         <button type="submit" id="search-for-city" class="btn btn-primary btn-block my-3">Search</button>
 
-        <div id="search-history" class="d-none">
+        <div id="search-history" class="mb-3 d-none">
         </div>
       </div>
 
-      <div class="col-9">
+      <div class="col-sm-12 col-md-9 d-inline-block h-auto mb-3">
         <div id="weather-info" class="container d-none">
-          <div class="row">
+          <div class="row mb-3">
             <div id="current-weather" class="col-12 border border-dark">
               <h3 id="current-weather-heading"></h3>
               <p id="current-temp"></p>
@@ -42,19 +42,19 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-12 px-0">
+            <div class="col-12 px-0 overflow-auto">
               <h4>5-Day Forecast</h4>
-              <div class="card-deck text-light">
+              <div class="d-inline-flex d-xl-flex justify-content-between text-light">
                 <div class="card">
+                  <div class="card-body"></div>
+                </div>
+                <div class="card mx-3">
                   <div class="card-body"></div>
                 </div>
                 <div class="card">
                   <div class="card-body"></div>
                 </div>
-                <div class="card">
-                  <div class="card-body"></div>
-                </div>
-                <div class="card">
+                <div class="card mx-3">
                   <div class="card-body"></div>
                 </div>
                 <div class="card">
@@ -65,7 +65,7 @@
           </div>
         </div>
 
-        <div id="messages" class="d-block align-middle text-center"><p class="d-inline-block align-middle bg-light text-dark rounded p-2">Enter a city to see its weather.</p></div>
+        <div id="messages" class="bg-light text-center p-5 d-none h-100 w-100 my-auto"><p class="d-inline-block align-middle bg-light text-dark rounded p-2">Enter a city to see its weather.</p></div>
       </div>
     </div>
   </div>
