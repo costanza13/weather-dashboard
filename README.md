@@ -12,4 +12,5 @@ An app to fetch and display weather information from OpenWeather for multiple ci
 - Future weather conditions for the city are presented as a 5-day forecast that includes the date, an icon representing the weather conditions, temperature, wind speed, and humidity for each day
 
 ## Screenshot
-<img src="./assets/images/weather-dashboard.png" />
+<img src="./assets/images/weather-dashboard.png" width="45%" />&nbsp;&nbsp;
+<img src="./assets/images/weather-dashboard-refine.png" width="45%" />
