@@ -157,7 +157,7 @@ var updateWeatherDashboard = function (weather) {
   var dateStr = new dayjs.unix(weather.current.dt).format('M/D/YYYY');
   currentWeatherHeadingEl.innerHTML = weather.city + ' (' + dateStr + ') <img src="https://openweathermap.org/img/wn/' + weather.current.weather[0].icon + '.png" />';
   currentTemperatureEl.innerHTML = 'Temp: ' + weather.current.temp + ' &deg;F';
-  currentWindEl.textContent = 'Wind: ' + weather.current.temp + ' MPH';
+  currentWindEl.textContent = 'Wind: ' + weather.current.wind_speed + ' MPH';
   currentHumidityEl.textContent = 'Humidity: ' + weather.current.humidity + ' %';
 
   var uviClass;
