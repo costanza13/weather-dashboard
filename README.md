@@ -11,6 +11,6 @@ An app to fetch and display weather information from OpenWeather for multiple ci
 - The UV index is styled with a color that indicates whether the conditions are favorable, moderate, or severe
 - Future weather conditions for the city are presented as a 5-day forecast that includes the date, an icon representing the weather conditions, temperature, wind speed, and humidity for each day
 
-## Screenshot
+## Screenshots
 <img src="./assets/images/weather-dashboard.png" width="45%" />&nbsp;&nbsp;
 <img src="./assets/images/weather-dashboard-refine.png" width="45%" />
